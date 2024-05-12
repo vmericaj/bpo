@@ -16,8 +16,7 @@ const ManageAccount = () => {
         <Route path="/personal-information" element={<PersonalInformation />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/privacy-settings" element={<PrivacySettings />} />
-        <Route path="/new-admin" element={<NewAdmin />} />
-        
+        <Route path="/new-admin" element={<NewAdmin />} /> 
       </Routes>
     </Router>
   );
