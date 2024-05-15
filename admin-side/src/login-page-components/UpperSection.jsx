@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdOutlineEmail, MdLockOutline, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import LogoPlaceHolder from '../assets/logo_placeholder.png';
 
-export default function LoginPage() {
+export default function UpperSection() {
     const [passwordShown, setPasswordShown] = useState(false);
     
     const togglePasswordVisibility = () => {

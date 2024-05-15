@@ -9,7 +9,7 @@ const Account = () => {
   const navigate = useNavigate();
 
   const handleUpdateClick = () => {
-    navigate('/personal-information');
+    navigate('manage-account/personal-information');
   };
 
   const handleChangePasswordClick = () => {
@@ -26,7 +26,7 @@ const Account = () => {
 
   return (
     <div className="bg-white min-h-screen flex font-poppins flex-col items-center py-8 px-4">
-      <h1 className="text-3xl font-bold mb-8 mt-16">MANAGE ACCOUNT</h1>
+      <h1 className="text-3xl font-bold mb-8 mt-2">MANAGE ACCOUNT</h1>
       <div className="w-full max-w-xs space-y-8">
           <h2 className="text-sm font-medium mb-5">Profile Settings</h2>
 

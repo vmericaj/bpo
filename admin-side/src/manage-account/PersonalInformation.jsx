@@ -190,6 +190,7 @@ const PersonalInformation = () => {
 
       </div>
     </div>
+
   );
 };
 
