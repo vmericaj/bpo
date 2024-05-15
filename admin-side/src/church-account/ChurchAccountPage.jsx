@@ -1,56 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../church-account/Modal';
+import ChurchModal from './ChurchModal';
 import logoImage from '../assets/logo_placeholder.png';
+import { ChurchContext } from '../context/ChurchContext';
 
-const members = ["Member 1", "Member 2", "Member 3", "Member 4", "Member 5"];
-const churchMembers = ["Chenelyn Hernandez", "Kyla Shingaling", "Wreckit Ralph", "America Joy"];
 
-// Export these utility functions
-export const getMemberAccPendingCount = () => members.length;
-export const getMemberAccCurrentCount = () => churchMembers.length;
-
-const MemberAcc = () => {
+export default function ChurchAccountPage() {
+    const [membersState, setMembersState, applicantsState, setApplicantsState] = useContext(ChurchContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedMember, setSelectedMember] = useState(null);
-    const [membersState, setMembers] = useState(members);
-    const [churchMembersState, setChurchMembers] = useState(churchMembers);
+    const [selectedApplicant, setSelectedApplicant] = useState(null);
     const navigate = useNavigate();
 
     const handleViewClick = (member) => {
-        navigate('/member-account/member-info', { state: { member } });
+        navigate('/church-account/ChurchInfo', { state: { member } }); // Ensure correct path
     };
 
     const openModal = (member) => {
-        setSelectedMember(member);
+        setSelectedApplicant(member);
         setIsModalOpen(true);
     };
 
     const closeModal = () => setIsModalOpen(false);
 
-    const handleAccept = (member) => {
-        setMembers(currentMembers => currentMembers.filter(m => m !== member));
-        setChurchMembers(currentChurchMembers => [member, ...currentChurchMembers]);
-        closeModal();
+    const handleAcceptApplicant = (member) => {
+        setApplicantsState(currentMembers => currentMembers.filter(m => m !== member));
+        setMembersState(currentChurchMembers => [member, ...currentChurchMembers]);
     };
 
     const handleDecline = (member) => {
-        setMembers(currentMembers => currentMembers.filter(m => m !== member));
+        setApplicantsState(currentMembers => currentMembers.filter(m => m !== member));
     };
 
     return (
         <div className="p-6 max-w-[375px] font-poppins mx-auto">
-            <h1 className="text-[28px] font-extrabold text-center mt-8 mb-6">MEMBER ACCOUNT</h1>
+            <h1 className="text-[28px] font-extrabold text-center mt-8 mb-6">CHURCH ACCOUNT</h1>
             <div className="flex items-center mb-4">
                 <span className="font-semibold text-[0.75rem]">Pending Applications</span>
                 <div className="relative ml-2">
                     <div className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                        {members.length}
+                        {applicantsState.length}
                     </div>
                 </div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-lg w-full">
-                {members.map((member, index) => (
+                {applicantsState.map((member, index) => (
                     <div key={index} className="flex justify-between text-[0.75rem] items-center my-3">
                         <div className="flex items-center">
                             <img src={logoImage} alt="Logo" className="w-10 h-10 object-cover mr-2 ml-2" />
@@ -64,8 +57,8 @@ const MemberAcc = () => {
                 ))}
             </div>
             <div className="bg-white p-4 rounded-lg shadow-lg w-full mt-4">
-                <h2 className="font-semibold text-[0.75rem] inline">Church Members <span className="bg-blue-500 text-white rounded-full px-2 py-0.5 text-xs">{churchMembers.length}</span></h2>
-                {churchMembers.map((member, index) => (
+                <h2 className="font-semibold text-[0.75rem] inline">Church Members <span className="bg-blue-500 text-white rounded-full px-2 py-0.5 text-xs">{membersState.length}</span></h2>
+                {membersState.map((member, index) => (
                     <div key={index} className="flex justify-between text-[0.75rem] items-center my-2">
                         <div className="flex items-center">
                             <img src={logoImage} alt="Logo" className="w-10 h-10 object-cover mr-2 ml-2" />
@@ -75,9 +68,7 @@ const MemberAcc = () => {
                     </div>
                 ))}
             </div>
-            {isModalOpen && <Modal member={selectedMember} closeModal={closeModal} acceptHandler={handleAccept} />}
+            {isModalOpen && <ChurchModal member={selectedApplicant} closeModal={closeModal} acceptHandler={handleAcceptApplicant} />}
         </div>
     );
 }
-
-export default MemberAcc;

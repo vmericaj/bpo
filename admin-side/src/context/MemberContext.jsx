@@ -1,17 +1,20 @@
-// src/contexts/MemberContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { useState } from 'react';
 
-const MemberContext = createContext();
+const applicants = ["Janae", "Deshaun", "Kaia", "Andrew", "Draven", "Landen", "Kailey", "Nathen"];
+const members = ["Chenelyn Hernandez", "Kyla Shingaling", "America Joy"];
 
-export const MemberProvider = ({ children }) => {
-    const [membersState, setMembers] = useState(["Member 1", "Member 2", "Member 3", "Member 4", "Member 5"]);
-    const [churchMembersState, setChurchMembers] = useState(["Chenelyn Hernandez", "Kyla Shingaling", "Wreckit Ralph", "America Joy"]);
+export const MemberContext = React.createContext();
+
+const MemberProvider = ({ children }) => {
+    const [membersState, setMembersState] = useState(members);
+    const [applicantsState, setApplicantsState] = useState(applicants);
+
 
     return (
-        <MemberContext.Provider value={{ membersState, setMembers, churchMembersState, setChurchMembers }}>
+        <MemberContext.Provider value={[membersState, setMembersState, applicantsState, setApplicantsState]}>
             {children}
         </MemberContext.Provider>
     );
 };
 
-export const useMemberContext = () => useContext(MemberContext);
+export default MemberProvider;
